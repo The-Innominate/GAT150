@@ -36,20 +36,19 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-	{
-		//std::unique_ptr<int> up = std::make_unique<int>(10);
-	}
+	//{
+	//	//std::unique_ptr<int> up = std::make_unique<int>(10);
+	//}
+	INFO_LOG("Hello World!")
 
 	kda::MemoryTracker::Initialize();
 	kda::seedRandom((unsigned int)time(nullptr));
 	kda::setFilePath("Assets");
 
-
+	//Initialize game engine
 	kda::g_audioSystem.Initialize();
-	
 	kda::g_renderer.Initialize();
 	kda::g_renderer.CreateWindow("CSC196", 800, 600);
-
 	kda::g_inputSystem.Initialize();
 
 	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
