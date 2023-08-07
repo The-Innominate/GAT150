@@ -3,8 +3,8 @@
 
 class Enemy : public kda::Actor {
 public:
-	Enemy(float speed, float turnRate, const kda::Transform& transform, std::shared_ptr<kda::Model> model) :
-		Actor{ transform, model },
+	Enemy(float speed, float turnRate, const kda::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed },
 		m_turnRate{ turnRate }
 	{

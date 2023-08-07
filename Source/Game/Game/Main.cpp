@@ -1,19 +1,23 @@
-#include <iostream>
 #include "Render/Render.h"
 #include "Render/ModelManager.h"
+#include "Render/ParticleSystem.h"
+#include "Render/Particle.h"
+#include "Render/Texture.h"
 #include "Core/Core.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Framework/Scene.h"
 #include "SpaceGame.h"
 #include "../../Engine/Core/Vector2.h"
+#include "Framework/Scene.h"
+#include "Framework/Emitter.h"
+#include <Framework/ResourceManager.h>
+
+#include <iostream>
 #include <chrono>
 #include <thread>
 #include <vector>
 #include <memory>
-#include "Render/ParticleSystem.h"
-#include "Render/Particle.h"
-#include "Framework/Emitter.h"
+#include <array>
 
 using namespace std;
 
@@ -35,10 +39,19 @@ public:
 	kda::Vector2 m_vel;
 };
 
+template <typename T>
+void print(const std::string& s, const T& container)
+{
+	std::cout << s << std::endl;
+		for (auto element : container)
+		{
+			std::cout << element << " ";
+		}
+	std::cout << std::endl;
+}
+
 int main(int argc, char* argv[]) {
-	//{
-	//	//std::unique_ptr<int> up = std::make_unique<int>(10);
-	//}
+
 	INFO_LOG("Hello World!")
 
 	kda::MemoryTracker::Initialize();
@@ -71,6 +84,9 @@ int main(int argc, char* argv[]) {
 	float speed = 200;
 	float turnRate = kda::DegreesToRadians(180);
 
+	// create texture
+	shared_ptr<kda::Texture> texture = kda::g_resources.Get<kda::Texture>("ShipSprite.png", kda::g_renderer);
+
 	// Main game loop
 	bool quit = false;
 	while (!quit) {
@@ -79,6 +95,7 @@ int main(int argc, char* argv[]) {
 		kda::g_time.tick();
 		kda::g_inputSystem.Update();
 		kda::g_particleSystem.Update(kda::g_time.getDeltaTime());
+
 		if (kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) {
 			quit = true;
 		}if (kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)){
@@ -98,7 +115,10 @@ int main(int argc, char* argv[]) {
 
 		kda::g_renderer.SetColor(0, 0, 0, 255);
 		kda::g_renderer.BeginFrame();
+
+
 		//draw
+		kda::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 		kda::Vector2 vel(1.0f, 0.3f);
 
 		for (auto& star : stars) {
@@ -107,6 +127,7 @@ int main(int argc, char* argv[]) {
 
 			kda::g_renderer.SetColor(kda::random(0, 254), kda::random(0, 254), kda::random(0, 254), 255);
 			kda::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
+
 
 		}
 

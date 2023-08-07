@@ -3,8 +3,8 @@
 
 class Player : public kda::Actor {
 	public:
-		Player(float speed, float turnRate, const kda::Transform& transform, std::shared_ptr<kda::Model> model) :
-			Actor{ transform, model },
+		Player(float speed, float turnRate, const kda::Transform& transform) :
+			Actor{ transform },
 			m_speed{ speed },
 			m_turnRate{ turnRate }
 		{}

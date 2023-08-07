@@ -3,8 +3,8 @@
 
 class Pew : public kda::Actor {
 public:
-	Pew(float speed, const kda::Transform& transform, std::shared_ptr<kda::Model> model) :
-		Actor{ transform, model },
+	Pew(float speed, const kda::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed }
 	{
 		m_lifespan = 2.0f;

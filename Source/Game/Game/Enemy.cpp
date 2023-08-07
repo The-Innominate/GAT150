@@ -25,7 +25,7 @@ void Enemy::Update(float dt) {
 	m_fireRate -= dt;
 	if (m_fireRate <= 0) {
 		kda::Transform transform1{m_transform.position, m_transform.rotation, 1};
-		std::unique_ptr<Pew> pew = std::make_unique<Pew>(400.0f, transform1, kda::g_modelManager.get("EnemyBullet.txt"));
+		std::unique_ptr<Pew> pew = std::make_unique<Pew>(400.0f, transform1);
 		pew->m_tag = "Enemy";
 		m_scene->Add(std::move(pew));
 
