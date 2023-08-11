@@ -1,4 +1,23 @@
 #include "Pew.h"
+#include "Render/Render.h"
+#include <Framework/Framework.h>
+
+
+bool Pew::Initialize() {
+
+	Actor::Initialize();
+	// cache off
+	auto collisionComponent = GetComponent<kda::CollisionComponent>();
+	if (collisionComponent) {
+		auto renderComponent = GetComponent<kda::RenderComponent>();
+		if (renderComponent) {
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = renderComponent->getRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Pew::Update(float dt){
 	Actor::Update(dt);

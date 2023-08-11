@@ -4,7 +4,7 @@
 
 namespace kda {
 	class Renderer;
-
+	
 	class Scene {
 	public:
 		Scene() = default;
@@ -18,7 +18,8 @@ namespace kda {
 		template<typename T>
 		T* GetActor();
 
-		friend class Actor;
+		//friend class Actor;
+
 	private:
 		std::list<std::unique_ptr<Actor>> m_actors;
 	};

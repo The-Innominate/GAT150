@@ -1,5 +1,4 @@
 #include "Render/Render.h"
-#include "Render/ModelManager.h"
 #include "Render/ParticleSystem.h"
 #include "Render/Particle.h"
 #include "Render/Texture.h"
@@ -7,10 +6,10 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "SpaceGame.h"
-#include "../../Engine/Core/Vector2.h"
-#include "Framework/Scene.h"
-#include "Framework/Emitter.h"
-#include <Framework/ResourceManager.h>
+#include "../../Engine/Core/Math/Vector2.h"
+#include "Framework/Framework.h"
+#include "Audio/AudioSystem.h"
+#include "Input/InputSystem.h"
 
 #include <iostream>
 #include <chrono>
@@ -39,6 +38,10 @@ public:
 	kda::Vector2 m_vel;
 };
 
+void zero(int v) {
+	v = 0;
+}
+
 template <typename T>
 void print(const std::string& s, const T& container)
 {
@@ -51,6 +54,10 @@ void print(const std::string& s, const T& container)
 }
 
 int main(int argc, char* argv[]) {
+
+	int i = 5;
+	zero(i);
+	cout << i << endl;
 
 	INFO_LOG("Hello World!")
 
@@ -85,7 +92,7 @@ int main(int argc, char* argv[]) {
 	float turnRate = kda::DegreesToRadians(180);
 
 	// create texture
-	shared_ptr<kda::Texture> texture = kda::g_resources.Get<kda::Texture>("ShipSprite.png", kda::g_renderer);
+	shared_ptr<kda::Texture> texture = kda::g_resources.Get<kda::Texture>("Planet.png", kda::g_renderer);
 
 	// Main game loop
 	bool quit = false;
@@ -118,8 +125,8 @@ int main(int argc, char* argv[]) {
 
 
 		//draw
-		kda::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
-		kda::Vector2 vel(1.0f, 0.3f);
+		//kda::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
+		//kda::Vector2 vel(1.0f, 0.3f);
 
 		for (auto& star : stars) {
 
@@ -127,8 +134,6 @@ int main(int argc, char* argv[]) {
 
 			kda::g_renderer.SetColor(kda::random(0, 254), kda::random(0, 254), kda::random(0, 254), 255);
 			kda::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
-
-
 		}
 
 		kda::g_particleSystem.Draw(kda::g_renderer);

@@ -7,8 +7,8 @@ namespace kda {
 	const float pi2 = (pi * 2);
 	const float halfpi = pi / 2;
 
-	constexpr float RadiansToDegrees(float radians) { return radians * (100.0f / pi); }
-	constexpr float DegreesToRadians(float degrees) { return degrees * (pi /100.0f); }
+	constexpr float RadiansToDegrees(float radians) { return radians * (180.0f / pi); }
+	constexpr float DegreesToRadians(float degrees) { return degrees * (pi /180.0f); }
 
 	constexpr int wrap(int value, int max) {
 		return value % max + ((value < 0) ? max : 0);

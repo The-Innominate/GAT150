@@ -1,5 +1,5 @@
 #pragma once
-#include "./Framework/Actor.h"
+#include "Framework/Actor.h"
 
 class Pew : public kda::Actor {
 public:
@@ -9,6 +9,8 @@ public:
 	{
 		m_lifespan = 2.0f;
 	}
+
+	bool Initialize() override;
 
 	void Update(float dt) override;
 	void onCollision(Actor* actor) override;

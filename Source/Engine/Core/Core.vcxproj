@@ -155,16 +155,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Color.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="fileIO.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="MathUTILS.h" />
+    <ClInclude Include="Math\Color.h" />
+    <ClInclude Include="Math\MathUTILS.h" />
+    <ClInclude Include="Math\Matrix22.h" />
+    <ClInclude Include="Math\Matrix33.h" />
+    <ClInclude Include="Math\Transform.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Time.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fileIO.cpp" />

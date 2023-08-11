@@ -1,34 +1,38 @@
 #pragma once
+#include "Object.h"
 #include "../Core/Core.h"
-#include "../Render/Model.h"
 #include "Components/Component.h"
 #include <memory>
 
 
 namespace kda {
-	class Actor {
+	class Renderer;
+
+	class Actor : public Object {
 		public:
 			Actor() = default;
-			Actor(const kda::Transform& transform) :
+			Actor(const Transform& transform) :
 				m_transform{ transform }
 			{}
 
+			virtual bool Initialize() override;
+			virtual void OnDestroy() override;
+
 			virtual void Update(float dt);
-			virtual void Draw(kda::Renderer& renderer);
+			virtual void Draw(Renderer& renderer);
 
 			void AddComponent(std::unique_ptr<Component> component);
 			template<typename T>
 			T* GetComponent();
 
-			float GetRadius() { return 30.0; }
+			float GetRadius() { return 30.0f; }
 			virtual void onCollision(Actor* other) {}
 			
-			class Scene* m_scene = nullptr;
 			friend class Scene;
-
+			class Scene* m_scene = nullptr;
 			class Game* m_game = nullptr;
 			
-			kda::Transform m_transform;
+			Transform m_transform;
 			std::string m_tag;
 			
 			float m_lifespan = -1.0f;
@@ -38,6 +42,7 @@ namespace kda {
 
 			bool m_destroyed = false;
 	};
+
 	template<typename T>
 	inline T* Actor::GetComponent()
 	{

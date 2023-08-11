@@ -2,16 +2,12 @@
 #include "Player.h"
 #include "Enemy.h"
 
-#include "Framework/Scene.h"
-#include "Framework/ResourceManager.h"
-#include "Framework/Component/SpriteComponent.h"
-#include <Framework/Components/EnginePhysicsComponent.h>
+#include "Framework/Framework.h"
 
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
 #include "Render/Render.h"
 #include "Render/Text.h"
-#include "Render/ModelManager.h"
 #include "Render/ParticleSystem.h"
 #include "Render/Particle.h"
 #include "Framework/Emitter.h"
@@ -57,18 +53,24 @@ void SpaceGame::Update(float dt){
 	case SpaceGame::eState::StartLevel:
 		m_scene->RemoveAll();
 	{
-		std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, kda::pi, kda::Transform{ {400, 300}, 10, 3 });
+		std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, kda::pi, kda::Transform{ {400, 300}, 0, 1 });
 		player->m_tag = "Player";
 		player->m_game = this;
 
-		std::unique_ptr<kda::SpriteComponent> component = std::make_unique<kda::SpriteComponent>();
-		component->m_texture = kda::g_resources.Get<kda::Texture>("ShipSprite.png", kda::g_renderer);
+		//Create components
+		auto component = std::make_unique<kda::SpriteComponent>();
+		component->m_texture = kda::g_resources.Get<kda::Texture>("NewShip.png", kda::g_renderer);
 		player->AddComponent(std::move(component));
 
 		auto physicsComponent = std::make_unique<kda::EnginePhysicsComponent>();
 		physicsComponent->m_damping = 0.9f;
 		player->AddComponent(std::move(physicsComponent));
 
+		auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
+		collisionComponent->m_radius = 30.0f;
+		player->AddComponent(std::move(collisionComponent));
+
+		player->Initialize();
 		m_scene->Add(std::move(player));
 	}
 	m_state = eState::Game;
@@ -80,6 +82,16 @@ void SpaceGame::Update(float dt){
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(kda::randomf(75.0f, 150.0f), kda::pi, kda::Transform((float)(kda::random(800), kda::random(600)), (float)kda::random((int)(kda::pi2), 1)));
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
+
+			auto component = std::make_unique<kda::SpriteComponent>();
+			component->m_texture = kda::g_resources.Get<kda::Texture>("Enemy.png", kda::g_renderer);
+			enemy->AddComponent(std::move(component));
+
+			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.0f;
+			enemy->AddComponent(std::move(collisionComponent));
+
+			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
 		}
 		break;

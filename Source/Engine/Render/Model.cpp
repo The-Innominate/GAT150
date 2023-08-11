@@ -1,4 +1,6 @@
 #include "Model.h"
+#include "Render.h"
+#include "Core/Math/Matrix22.h"
 #include <sstream>
 
 namespace kda {
@@ -39,7 +41,17 @@ namespace kda {
 		}
 	}
 	void Model::Draw(Renderer& renderer, const Transform& transform){
-		Draw(renderer, transform.position, transform.scale, transform.rotation);
+		if (m_points.empty()) return;
+
+		mat3 mx = transform.GetMatrix();
+
+		renderer.SetColor(Color::ToInt(m_color.r), Color::ToInt(m_color.g), Color::ToInt(m_color.b), Color::ToInt(m_color.a));
+		for (int i = 0; i < m_points.size() - 1; i++) {
+			vec2 p1 = (mx * m_points[i]);
+			vec2 p2 = (mx * m_points[i + 1]);
+
+			renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
+		};
 	}
 
 	float Model::getRadius() {
@@ -51,5 +63,9 @@ namespace kda {
 		}
 
 		return m_radius;
+	}
+
+	bool Model::Create(std::string filename, ...) {
+		return load(filename);
 	}
 }

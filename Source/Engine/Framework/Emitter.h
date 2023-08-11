@@ -1,8 +1,6 @@
 #pragma once
-#include <Core/Color.h>
-#include "Render/Render.h"
-#include "Actor.h"
-#include "Core/Transform.h"
+#include "Core/Math/Color.h"
+#include "Framework/Actor.h"
 
 
 namespace kda {
@@ -24,8 +22,7 @@ namespace kda {
 		Color color;
 	};
 
-	class Emitter : public Actor
-	{
+	class Emitter : public Actor {
 	public:
 		Emitter() = default;
 		Emitter(const Transform& transform, const EmitterData& data) :

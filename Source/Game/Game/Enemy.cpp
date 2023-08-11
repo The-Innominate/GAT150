@@ -2,10 +2,27 @@
 #include "Player.h"
 #include "Pew.h"
 #include "SpaceGame.h"
-#include "./Framework/Scene.h"
 #include "Render/Renderer.h"
-#include "Render/ModelManager.h"
-#include <Framework/Emitter.h>
+#include "Framework/Framework.h"
+
+
+
+bool Enemy::Initialize() {
+	
+	Actor::Initialize();
+	// cache off
+	auto collisionComponent = GetComponent<kda::CollisionComponent>();
+	if (collisionComponent) {
+		auto renderComponent = GetComponent<kda::RenderComponent>();
+		if (renderComponent) {
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = renderComponent->getRadius() * scale;
+		}
+	}
+
+	return true;
+}
+
 
 void Enemy::Update(float dt) {
 
@@ -27,6 +44,11 @@ void Enemy::Update(float dt) {
 		kda::Transform transform1{m_transform.position, m_transform.rotation, 1};
 		std::unique_ptr<Pew> pew = std::make_unique<Pew>(400.0f, transform1);
 		pew->m_tag = "Enemy";
+
+		std::unique_ptr<kda::SpriteComponent> component = std::make_unique<kda::SpriteComponent>();
+		component->m_texture = kda::g_resources.Get<kda::Texture>("EnemyBullet.png", kda::g_renderer);
+		pew->AddComponent(std::move(component));
+
 		m_scene->Add(std::move(pew));
 
 		m_fireRate = m_fireTime;
@@ -39,7 +61,7 @@ void Enemy::onCollision(Actor* actor){
 	if (actor->m_tag == "Player") {
 		hp -= 5;
 	}
-	if (hp <= 0) {
+	if (hp <= 0 && !m_destroyed) {
 		m_game->AddPoint(100);
 		m_destroyed = true;
 
@@ -59,5 +81,6 @@ void Enemy::onCollision(Actor* actor){
 		auto emitter = std::make_unique<kda::Emitter>(transform, data);
 		emitter->m_lifespan = 1.0f;
 		m_scene->Add(std::move(emitter));
+	
 	}
 }

@@ -1,9 +1,12 @@
 #pragma once
 #include <vector>
-#include "Render.h"
 #include "Particle.h"
 
+
+
 namespace kda {
+	class Renderer;
+
 	class ParticleSystem
 	{
 	public:

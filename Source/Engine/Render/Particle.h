@@ -1,9 +1,9 @@
 #pragma once
-#include "Render.h"
-#include "Core/Vector2.h"
-#include <Core/Color.h>
+#include "Core/Math/Vector2.h"
+#include "Core/Math/Color.h"
 
 namespace kda{
+class Renderer;
 	struct ParticleData
 	{
 		vec2 position;

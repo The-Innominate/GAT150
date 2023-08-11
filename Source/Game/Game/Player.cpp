@@ -1,14 +1,28 @@
 #include "Player.h"
-#include "Framework/Scene.h"
 #include "Render/Renderer.h"
 #include "Pew.h"
 #include "SpaceGame.h"
-#include <Framework/Emitter.h>
-#include "Render/ModelManager.h"
-#include <Framework/Component/SpriteComponent.h>
-#include <Framework/ResourceManager.h>
-#include <Framework/Components/PhysicsComponents.h>
+#include "Framework/Framework.h"
+#include "Framework/Components/CollisionComponent.h"
+#include "Input/InputSystem.h"
 
+
+bool Player::Initialize(){
+	Actor::Initialize();
+
+	// cache off
+	m_physicsComponent = GetComponent<kda::PhysicsComponent>();
+	auto collisionComponent = GetComponent<kda::CollisionComponent>();
+	if (collisionComponent) {
+		auto renderComponent = GetComponent<kda::RenderComponent>();
+		if (renderComponent) {
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = renderComponent->getRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Player::Update(float dt) {
 	Actor::Update(dt);
@@ -42,9 +56,8 @@ void Player::Update(float dt) {
 		
 
 	kda::vec2 forward = kda::vec2{ 0, -1 }.Rotate(m_transform.rotation);
-
-	auto physicsComponent = GetComponent<kda::PhysicsComponent>();
-	physicsComponent->ApplyForce(forward * m_speed * thrust);
+	
+	m_physicsComponent->ApplyForce(forward * m_speed * thrust);
 	
 
 	//m_transform.position += forward * m_speed * thrust * kda::g_time.getDeltaTime();
@@ -66,8 +79,13 @@ void Player::Update(float dt) {
 			pew->m_tag = "Player";
 
 			std::unique_ptr<kda::SpriteComponent> component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("NewShip.png", kda::g_renderer);
+			component->m_texture = kda::g_resources.Get<kda::Texture>("ShipShot.png", kda::g_renderer);
 			pew->AddComponent(std::move(component));
+
+			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.0f;
+			pew->AddComponent(std::move(collisionComponent));
+
 			m_scene->Add(std::move(pew));
 		}
 
@@ -79,8 +97,14 @@ void Player::Update(float dt) {
 			pew->m_tag = "Player";
 
 			std::unique_ptr<kda::SpriteComponent> component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("NewShip.png", kda::g_renderer);
+			component->m_texture = kda::g_resources.Get<kda::Texture>("ShipShot.png", kda::g_renderer);
 			pew->AddComponent(std::move(component));
+
+			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.0f;
+			pew->AddComponent(std::move(collisionComponent));
+
+			pew->Initialize();
 			m_scene->Add(std::move(pew));
 
 			//Weapon 2
@@ -89,11 +113,16 @@ void Player::Update(float dt) {
 			pew2->m_tag = "Player";
 
 			component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("NewShip.png", kda::g_renderer);
-			pew->AddComponent(std::move(component));
+			component->m_texture = kda::g_resources.Get<kda::Texture>("ShipShot.png", kda::g_renderer);
+			pew2->AddComponent(std::move(component));
+
+			collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.0f;
+			pew2->AddComponent(std::move(collisionComponent));
+
+			pew2->Initialize();
 			m_scene->Add(std::move(pew2));
 		}
-		
 	}
 
 	if (kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_T)) kda::g_time.setTimeScale(0.5f);

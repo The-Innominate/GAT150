@@ -1,4 +1,5 @@
 #include "Particle.h"
+#include "Render.h"
 
 void kda::Particle::Update(float dt){
 	m_data.lifetimer += dt;
