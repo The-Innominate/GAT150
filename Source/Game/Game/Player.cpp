@@ -79,7 +79,7 @@ void Player::Update(float dt) {
 			pew->m_tag = "Player";
 
 			std::unique_ptr<kda::SpriteComponent> component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("ShipShot.png", kda::g_renderer);
+			component->m_texture = GET_RESOURCE(kda::Texture, "ShipShot.png", kda::g_renderer);
 			pew->AddComponent(std::move(component));
 
 			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
@@ -97,7 +97,7 @@ void Player::Update(float dt) {
 			pew->m_tag = "Player";
 
 			std::unique_ptr<kda::SpriteComponent> component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("ShipShot.png", kda::g_renderer);
+			component->m_texture = GET_RESOURCE(kda::Texture, "ShipShot.png", kda::g_renderer);
 			pew->AddComponent(std::move(component));
 
 			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
@@ -113,7 +113,7 @@ void Player::Update(float dt) {
 			pew2->m_tag = "Player";
 
 			component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("ShipShot.png", kda::g_renderer);
+			component->m_texture = GET_RESOURCE(kda::Texture, "ShipShot.png", kda::g_renderer);
 			pew2->AddComponent(std::move(component));
 
 			collisionComponent = std::make_unique<kda::CircleCollisionComponent>();

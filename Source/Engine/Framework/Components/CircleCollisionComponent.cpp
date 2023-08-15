@@ -3,6 +3,8 @@
 
 namespace kda{
 
+	CLASS_DEFINITION(CircleCollisionComponent)
+
 	void kda::CircleCollisionComponent::Update(float dt){
 
 	}

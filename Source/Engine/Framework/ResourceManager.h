@@ -1,12 +1,15 @@
 #pragma once
 #include "Resource/Resource.h"
+#include "Singleton.h"
 
 #include <map>
 #include <memory>
 #include <string>
 
+#define GET_RESOURCE(type, filename, ...) kda::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+
 namespace kda {
-	class ResourceManager {
+	class ResourceManager : public Singleton<ResourceManager> {
 		public: 
 			template <typename T, typename ... TArgs>
 			res_t<T> Get(const std::string& filename, TArgs ... args);
@@ -14,7 +17,7 @@ namespace kda {
 		private:
 			std::map<std::string, res_t<Resource>> m_resources;
 	};
-	extern ResourceManager g_resources;
+
 	template<typename T, typename ...TArgs>
 	inline res_t<T> ResourceManager::Get(const std::string& filename, TArgs ...args) {
 		if(m_resources.find(filename) != m_resources.end()) {

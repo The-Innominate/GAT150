@@ -3,6 +3,8 @@
 
 namespace kda {
 
+	CLASS_DEFINITION(Actor)
+
 	bool Actor::Initialize(){
 		for (auto& component : m_components) {
 			component->Initialize();
@@ -40,6 +42,10 @@ namespace kda {
 	void Actor::AddComponent(std::unique_ptr<Component> component){
 		component->m_owner = this;
 		m_components.push_back(std::move(component));
+	}
+
+	bool Actor::Read(const rapidjson::Value& vlaue) {
+		return true;
 	}
 }
 

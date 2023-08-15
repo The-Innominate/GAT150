@@ -53,17 +53,41 @@ void print(const std::string& s, const T& container)
 	std::cout << std::endl;
 }
 
+
+
 int main(int argc, char* argv[]) {
 
-	int i = 5;
-	zero(i);
-	cout << i << endl;
-
-	INFO_LOG("Hello World!")
+	INFO_LOG("Hello World!");
 
 	kda::MemoryTracker::Initialize();
 	kda::seedRandom((unsigned int)time(nullptr));
 	kda::setFilePath("Assets");
+
+	rapidjson::Document document;
+	kda::Json::Load("json.txt", document);
+
+	std::string str;
+	kda::Json::Read(document, "string", str);
+		std::cout << str << std::endl;
+	bool b;
+	kda::Json::Read(document, "boolean", b);
+		std::cout << b << std::endl;
+	int i1;
+		kda::Json::Read(document, "integer1", i1);
+		std::cout << i1 << std::endl;
+	int i2;
+		kda::Json::Read(document, "integer2", i2);
+		std::cout << i2 << std::endl;
+	float f;
+	kda::Json::Read(document, "float", f);
+		std::cout << f << std::endl;
+	kda::vec2 v2;
+	kda::Json::Read(document, "vector2", v2);
+		std::cout << v2 << std::endl;
+
+	
+
+	
 
 	//Initialize game engine
 	kda::g_audioSystem.Initialize();
@@ -92,7 +116,7 @@ int main(int argc, char* argv[]) {
 	float turnRate = kda::DegreesToRadians(180);
 
 	// create texture
-	shared_ptr<kda::Texture> texture = kda::g_resources.Get<kda::Texture>("Planet.png", kda::g_renderer);
+	shared_ptr<kda::Texture> texture = GET_RESOURCE(kda::Texture, "Planet.png", kda::g_renderer);
 
 	// Main game loop
 	bool quit = false;

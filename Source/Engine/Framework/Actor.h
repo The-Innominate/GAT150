@@ -10,6 +10,8 @@ namespace kda {
 
 	class Actor : public Object {
 		public:
+			CLASS_DECLARATION(Actor)
+
 			Actor() = default;
 			Actor(const Transform& transform) :
 				m_transform{ transform }

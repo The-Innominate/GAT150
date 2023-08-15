@@ -4,6 +4,7 @@
 
 namespace kda {
 	class PhysicsComponent : public Component{
+
 		public:
 			//void Update(float dt) override;
 			virtual void ApplyForce(const vec2& force) = 0;

@@ -15,13 +15,14 @@
 bool SpaceGame::Initialize(){
 	//Create fonts/ text objects
 	//m_font = kda::g_resources.Get<kda::Font>("MetalRocker.ttf", 24);
-	m_scoreText = std::make_unique<kda::Text>(kda::g_resources.Get<kda::Font>("MetalRocker.ttf", 24));
+	m_font = GET_RESOURCE(kda::Font, "MetalRocker.ttf", 24);
+	m_scoreText = std::make_unique<kda::Text>(GET_RESOURCE(kda::Font, "MetalRocker.ttf", 24));
 	m_scoreText->Create(kda::g_renderer, "0000", kda::Color{ 1, 1, 1, 1 });
 
-	m_titleText = std::make_unique<kda::Text>(kda::g_resources.Get<kda::Font>("MetalRocker.ttf", 24));
+	m_titleText = std::make_unique<kda::Text>(GET_RESOURCE(kda::Font, "MetalRocker.ttf", 24));
 	m_titleText->Create(kda::g_renderer, "AZTEROIDS", kda::Color{ 1, 1, 1, 1 });
 
-	m_gameOverText = std::make_unique<kda::Text>(kda::g_resources.Get<kda::Font>("MetalRocker.ttf", 24));
+	m_gameOverText = std::make_unique<kda::Text>(m_font);
 	m_gameOverText->Create(kda::g_renderer, "GAME OVER", kda::Color{ 1, 1, 1, 1 });
 	//Load audio
 	kda::g_audioSystem.AddAudio("hit", "Laser_Shoot.wav");
@@ -58,15 +59,15 @@ void SpaceGame::Update(float dt){
 		player->m_game = this;
 
 		//Create components
-		auto component = std::make_unique<kda::SpriteComponent>();
-		component->m_texture = kda::g_resources.Get<kda::Texture>("NewShip.png", kda::g_renderer);
+		auto component = CREATE_CLASS(SpriteComponent);
+		component->m_texture = GET_RESOURCE(kda::Texture, "NewShip.png", kda::g_renderer);
 		player->AddComponent(std::move(component));
 
-		auto physicsComponent = std::make_unique<kda::EnginePhysicsComponent>();
+		auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
 		physicsComponent->m_damping = 0.9f;
 		player->AddComponent(std::move(physicsComponent));
 
-		auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
+		auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
 		collisionComponent->m_radius = 30.0f;
 		player->AddComponent(std::move(collisionComponent));
 
@@ -83,8 +84,8 @@ void SpaceGame::Update(float dt){
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 
-			auto component = std::make_unique<kda::SpriteComponent>();
-			component->m_texture = kda::g_resources.Get<kda::Texture>("Enemy.png", kda::g_renderer);
+			auto component = CREATE_CLASS(SpriteComponent);
+			component->m_texture = GET_RESOURCE(kda::Texture, "Enemy.png", kda::g_renderer);
 			enemy->AddComponent(std::move(component));
 
 			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();

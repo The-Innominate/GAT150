@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Json.h"
+
 #include "Logger.h"
 #include "Random.h"
 #include "fileIO.h"

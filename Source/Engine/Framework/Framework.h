@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Emitter.h"
 #include "Actor.h"
+#include "Factory.h"
 
 #include "ResourceManager.h"
 #include "Resource/Resource.h"
