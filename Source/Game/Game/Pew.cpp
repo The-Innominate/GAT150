@@ -2,35 +2,46 @@
 #include "Render/Render.h"
 #include <Framework/Framework.h>
 
+namespace kda {
 
-bool Pew::Initialize() {
+	CLASS_DEFINITION(Pew)
 
-	Actor::Initialize();
-	// cache off
-	auto collisionComponent = GetComponent<kda::CollisionComponent>();
-	if (collisionComponent) {
-		auto renderComponent = GetComponent<kda::RenderComponent>();
-		if (renderComponent) {
-			float scale = m_transform.scale;
-			collisionComponent->m_radius = renderComponent->getRadius() * scale;
+	bool Pew::Initialize() {
+		Actor::Initialize();
+
+		// cache off
+ 		auto collisionComponent = GetComponent<kda::CollisionComponent>();
+		if (collisionComponent) {
+			auto renderComponent = GetComponent<kda::RenderComponent>();
+			if (renderComponent) {
+				float scale = transform.scale;
+				collisionComponent->m_radius = renderComponent->getRadius() * scale;
+			}
+		}
+
+		return true;
+	}
+
+	void Pew::Update(float dt){
+		Actor::Update(dt);
+
+		kda::vec2 forward = kda::vec2{ 0, -1 }.Rotate(transform.rotation);
+		transform.position += forward * speed * kda::g_time.getDeltaTime();
+		transform.position.x = kda::wrap(transform.position.x, (float)kda::g_renderer.GetWidth());
+		transform.position.y = kda::wrap(transform.position.y, (float)kda::g_renderer.GetHeight());
+	}
+
+
+	void Pew::onCollision(Actor* actor){
+		if (actor->tag != tag) {
+			lifespan = 0;
+			m_destroyed = true;
 		}
 	}
 
-	return true;
-}
-
-void Pew::Update(float dt){
-	Actor::Update(dt);
-
-	kda::vec2 forward = kda::vec2{ 0, -1 }.Rotate(m_transform.rotation);
-	m_transform.position += forward * m_speed * kda::g_time.getDeltaTime();
-	m_transform.position.x = kda::wrap(m_transform.position.x, (float)kda::g_renderer.GetWidth());
-	m_transform.position.y = kda::wrap(m_transform.position.y, (float)kda::g_renderer.GetHeight());
-}
-
-void Pew::onCollision(Actor* actor){
-	if (actor->m_tag != m_tag) {
-		m_lifespan = 0;
-		m_destroyed = true;
+	void Pew::Read(const json_t& value)
+	{
+		Actor::Read(value);
+		READ_DATA(value, speed);
 	}
 }

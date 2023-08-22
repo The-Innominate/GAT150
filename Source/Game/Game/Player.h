@@ -6,8 +6,8 @@ class Player : public kda::Actor {
 	public:
 		Player(float speed, float turnRate, const kda::Transform& transform) :
 			Actor{ transform },
-			m_speed{ speed },
-			m_turnRate{ turnRate }
+			speed{ speed },
+			turnRate{ turnRate }
 		{}
 
 		bool Initialize() override;
@@ -15,8 +15,8 @@ class Player : public kda::Actor {
 		void onCollision(Actor* actor) override;
 
 	private:
-		float m_speed = 0;
-		float m_turnRate = 0;
+		float speed = 0;
+		float turnRate = 0;
 		int hp = 100;
 
 		kda::PhysicsComponent* m_physicsComponent = nullptr;

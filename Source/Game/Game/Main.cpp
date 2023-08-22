@@ -10,6 +10,7 @@
 #include "Framework/Framework.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
+#include "Physics/Physics/PhysicsSystem.h"
 
 #include <iostream>
 #include <chrono>
@@ -94,6 +95,7 @@ int main(int argc, char* argv[]) {
 	kda::g_renderer.Initialize();
 	kda::g_renderer.CreateWindow("CSC196", 800, 600);
 	kda::g_inputSystem.Initialize();
+	kda::PhysicsSystem::Instance().Initialize();
 
 	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
 	game->Initialize();
@@ -151,7 +153,9 @@ int main(int argc, char* argv[]) {
 		//draw
 		//kda::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 		//kda::Vector2 vel(1.0f, 0.3f);
-
+		game->Draw(kda::g_renderer);
+		kda::g_particleSystem.Draw(kda::g_renderer);
+		
 		for (auto& star : stars) {
 
 			star.Update(kda::g_renderer.GetWidth(), kda::g_renderer.GetHeight());
@@ -159,9 +163,7 @@ int main(int argc, char* argv[]) {
 			kda::g_renderer.SetColor(kda::random(0, 254), kda::random(0, 254), kda::random(0, 254), 255);
 			kda::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
-
-		kda::g_particleSystem.Draw(kda::g_renderer);
-		game->Draw(kda::g_renderer);
+		
 		//model.Draw(kda::g_renderer, transform.position, transform.scale, transform.rotation);
 		
 		kda::g_renderer.EndFrame();

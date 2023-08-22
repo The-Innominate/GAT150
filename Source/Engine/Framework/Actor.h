@@ -14,8 +14,9 @@ namespace kda {
 
 			Actor() = default;
 			Actor(const Transform& transform) :
-				m_transform{ transform }
+				transform{ transform }
 			{}
+			Actor(const Actor& other);
 
 			virtual bool Initialize() override;
 			virtual void OnDestroy() override;
@@ -34,13 +35,16 @@ namespace kda {
 			class Scene* m_scene = nullptr;
 			class Game* m_game = nullptr;
 			
-			Transform m_transform;
-			std::string m_tag;
-			
-			float m_lifespan = -1.0f;
+		public:
+			Transform transform;
+			std::string tag;
+			float lifespan = -1.0f;
+			bool destroyed = false;
+			bool persistent = false;
+			bool prototype = false;
 
 		protected:
-			std::vector<std::unique_ptr<class Component>> m_components;
+			std::vector<std::unique_ptr<class Component>> components;
 
 			bool m_destroyed = false;
 	};
@@ -48,7 +52,7 @@ namespace kda {
 	template<typename T>
 	inline T* Actor::GetComponent()
 	{
-		for (auto& component : m_components) {
+		for (auto& component : components) {
 			T* result = dynamic_cast<T*>(component.get());
 			if (result) {
 				return result;
