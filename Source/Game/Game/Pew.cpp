@@ -42,6 +42,7 @@ namespace kda {
 	void Pew::Read(const json_t& value)
 	{
 		Actor::Read(value);
+
 		READ_DATA(value, speed);
 	}
 }

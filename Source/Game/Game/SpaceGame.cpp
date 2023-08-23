@@ -19,8 +19,8 @@ bool SpaceGame::Initialize(){
 	m_scoreText = std::make_unique<kda::Text>(GET_RESOURCE(kda::Font, "MetalRocker.ttf", 24));
 	m_scoreText->Create(kda::g_renderer, "0000", kda::Color{ 1, 1, 1, 1 });
 
-	m_titleText = std::make_unique<kda::Text>(GET_RESOURCE(kda::Font, "MetalRocker.ttf", 24));
-	m_titleText->Create(kda::g_renderer, "AZTEROIDS", kda::Color{ 1, 1, 1, 1 });
+	/*m_titleText = std::make_unique<kda::Text>(GET_RESOURCE(kda::Font, "MetalRocker.ttf", 24));
+	m_titleText->Create(kda::g_renderer, "AZTEROIDS", kda::Color{ 1, 1, 1, 1 });*/
 
 	m_gameOverText = std::make_unique<kda::Text>(m_font);
 	m_gameOverText->Create(kda::g_renderer, "GAME OVER", kda::Color{ 1, 1, 1, 1 });
@@ -31,6 +31,10 @@ bool SpaceGame::Initialize(){
 	m_scene = std::make_unique<kda::Scene>();
 	m_scene->Load("Scene.json");
 	m_scene->Initialize();
+
+
+	EVENT_SUBSCRIBE("AddPoints", SpaceGame::AddPoints);
+	EVENT_SUBSCRIBE("OnPlayerDead", SpaceGame::OnPlayerDead);
 
 	return true;
 }
@@ -57,22 +61,23 @@ void SpaceGame::Update(float dt){
 	case SpaceGame::eState::StartLevel:
 		m_scene->RemoveAll();
 	{
-		std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, kda::pi, kda::Transform{ {400, 300}, 0, 1 });
-		player->tag = "Player";
-		player->m_game = this;
+			auto player = INSTANTIATE(Player, "Player");
+		//std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, kda::pi, kda::Transform{ {400, 300}, 0, 1 });
+		//player->tag = "Player";
+		//player->m_game = this;
 
-		//Create components
-		auto component = CREATE_CLASS(SpriteComponent);
-		component->m_texture = GET_RESOURCE(kda::Texture, "NewShip.png", kda::g_renderer);
-		player->AddComponent(std::move(component));
+		////Create components
+		//auto component = CREATE_CLASS(SpriteComponent);
+		//component->m_texture = GET_RESOURCE(kda::Texture, "NewShip.png", kda::g_renderer);
+		//player->AddComponent(std::move(component));
 
-		auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
-		physicsComponent->m_damping = 0.9f;
-		player->AddComponent(std::move(physicsComponent));
+		//auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
+		//physicsComponent->m_damping = 0.9f;
+		//player->AddComponent(std::move(physicsComponent));
 
-		auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
-		collisionComponent->m_radius = 30.0f;
-		player->AddComponent(std::move(collisionComponent));
+		//auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
+		//collisionComponent->m_radius = 30.0f;
+		//player->AddComponent(std::move(collisionComponent));
 
 		player->Initialize();
 		m_scene->Add(std::move(player));
@@ -83,7 +88,8 @@ void SpaceGame::Update(float dt){
 		m_spawnTimer += dt;
 		if (m_spawnTimer >= m_spawnTime) {
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(kda::randomf(75.0f, 150.0f), kda::pi, kda::Transform((float)(kda::random(800), kda::random(600)), (float)kda::random((int)(kda::pi2), 1)));
+			auto enemy = INSTANTIATE(Enemy, "Enemy");
+			/*std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(kda::randomf(75.0f, 150.0f), kda::pi, kda::Transform((float)(kda::random(800), kda::random(600)), (float)kda::random((int)(kda::pi2), 1)));
 			enemy->tag = "Enemy";
 			enemy->m_game = this;
 
@@ -93,7 +99,7 @@ void SpaceGame::Update(float dt){
 
 			auto collisionComponent = std::make_unique<kda::CircleCollisionComponent>();
 			collisionComponent->m_radius = 30.0f;
-			enemy->AddComponent(std::move(collisionComponent));
+			enemy->AddComponent(std::move(collisionComponent));*/
 
 			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
@@ -126,7 +132,10 @@ void SpaceGame::Update(float dt){
 
 void SpaceGame::Draw(kda::Renderer& renderer){
 	if (m_state == eState::Title) {
-		m_titleText->Draw(renderer, 400, 300);
+		//m_titleText->Draw(renderer, 400, 300);
+		m_scene->GetActorByName("Title")->active = true;
+	}else {
+		m_scene->GetActorByName("Title")->active = false;
 	}
 
 	if (m_state == eState::GameOver) {
@@ -135,6 +144,15 @@ void SpaceGame::Draw(kda::Renderer& renderer){
 
 	m_scene->Draw(renderer);
 	m_scoreText->Draw(renderer, 40, 20);
+}
+
+void SpaceGame::AddPoints(const kda::Event& event){
+	m_score += std::get<int>(event.data);
+}
+
+void SpaceGame::OnPlayerDead(const kda::Event& event){
+	m_lives--;
+	m_state = eState::PlayerDeadStart;
 }
 
 // Path: Source\Game\Game\SpaceGame.cpp

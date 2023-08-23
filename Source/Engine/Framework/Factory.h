@@ -2,6 +2,7 @@
 #include <memory>
 #include <map>
 #include <string>
+#include "Core/Logger.h"
 #include "Singleton.h"
 
 #define CREATE_CLASS(classname) kda::Factory::Instance().Create<kda::classname>(#classname) 
@@ -69,6 +70,9 @@ namespace kda {
 		if (iter != m_registry.end()) {
 			return std::unique_ptr<T>(static_cast<T*>(iter->second->Create().release()));
 		}
+
+		ERROR_LOG("Class not found in Factory " << key);
+
 		return std::unique_ptr<T>();
 	}
 }

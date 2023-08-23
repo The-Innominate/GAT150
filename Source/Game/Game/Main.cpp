@@ -18,6 +18,7 @@
 #include <vector>
 #include <memory>
 #include <array>
+#include <functional>
 
 using namespace std;
 
@@ -55,7 +56,6 @@ void print(const std::string& s, const T& container)
 }
 
 
-
 int main(int argc, char* argv[]) {
 
 	INFO_LOG("Hello World!");
@@ -63,32 +63,6 @@ int main(int argc, char* argv[]) {
 	kda::MemoryTracker::Initialize();
 	kda::seedRandom((unsigned int)time(nullptr));
 	kda::setFilePath("Assets");
-
-	rapidjson::Document document;
-	kda::Json::Load("json.txt", document);
-
-	std::string str;
-	kda::Json::Read(document, "string", str);
-		std::cout << str << std::endl;
-	bool b;
-	kda::Json::Read(document, "boolean", b);
-		std::cout << b << std::endl;
-	int i1;
-		kda::Json::Read(document, "integer1", i1);
-		std::cout << i1 << std::endl;
-	int i2;
-		kda::Json::Read(document, "integer2", i2);
-		std::cout << i2 << std::endl;
-	float f;
-	kda::Json::Read(document, "float", f);
-		std::cout << f << std::endl;
-	kda::vec2 v2;
-	kda::Json::Read(document, "vector2", v2);
-		std::cout << v2 << std::endl;
-
-	
-
-	
 
 	//Initialize game engine
 	kda::g_audioSystem.Initialize();
@@ -127,7 +101,6 @@ int main(int argc, char* argv[]) {
 		kda::g_audioSystem.Update();
 		kda::g_time.tick();
 		kda::g_inputSystem.Update();
-		kda::g_particleSystem.Update(kda::g_time.getDeltaTime());
 
 		if (kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) {
 			quit = true;
@@ -135,6 +108,9 @@ int main(int argc, char* argv[]) {
 			kda::g_audioSystem.PlayOneShot("hit");
 		}
 
+		kda::g_particleSystem.Update(kda::g_time.getDeltaTime());
+		kda::PhysicsSystem::Instance().Update(kda::g_time.getDeltaTime());
+		
 		//Update Game
 		game->Update(kda::g_time.getDeltaTime());
 

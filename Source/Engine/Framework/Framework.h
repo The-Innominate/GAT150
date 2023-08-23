@@ -19,3 +19,5 @@
 
 #include "Components/CollisionComponent.h"
 #include "Components/CircleCollisionComponent.h"
+#include "Components/Box2DPhysicsComponent.h"
+#include "Components/Box2DCollisionComponent.h"

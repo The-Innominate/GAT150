@@ -1,1 +1,3 @@
 Info: Main.cpp(61) Hello World!
+Info: EventManager.cpp(15) Event subscribed: AddPoints
+Info: EventManager.cpp(15) Event subscribed: OnPlayerDead
