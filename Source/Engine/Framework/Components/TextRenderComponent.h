@@ -19,6 +19,7 @@ namespace kda {
 		std::string text;
 		std::string fontName;
 		int fontSize = 0;
+		Color color;
 	private:
 		bool m_changed = true;
 		//<unique pointer of Text type> m_text;

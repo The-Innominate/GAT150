@@ -2,8 +2,10 @@
 #include "Math/Vector2.h"
 #include "rapidjson/include/rapidjson/Document.h"
 #include <string>
+#include "Math/Color.h"
+#include "Math/Rect.h"
 
-#define READ_DATA(value, data) kda::Json::Read(value, #data, data);
+#define READ_DATA(value, data) kda::Json::Read(value, #data, data)
 #define READ_DATA_REQUIRED(value, data) kda::Json::Read(vlaue, #data, data, true);
 #define HAS_DATA(value, data) value.HasMember(#data)
 #define GET_DATA(value, data) value[#data]
@@ -20,6 +22,8 @@ namespace kda {
 		static bool Read(const rapidjson::Value& value, const std::string& name, bool& data, bool required = false);
 		static bool Read(const rapidjson::Value& value, const std::string& name, std::string& data, bool required = false);
 		static bool Read(const rapidjson::Value& value, const std::string& name, vec2& data, bool required = false);
+		static bool Read(const rapidjson::Value& value, const std::string& name, Color& data, bool required = false);
+		static bool Read(const rapidjson::Value& value, const std::string& name, Rect& data, bool required = false);
 	};
 
 	using json_t = rapidjson::Value;

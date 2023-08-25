@@ -29,7 +29,8 @@ namespace kda {
 			T* GetComponent();
 
 			float GetRadius() { return 30.0f; }
-			virtual void onCollision(Actor* other) {}
+			virtual void onCollisionEnter(Actor* other) {}
+			virtual void onCollisionExit(Actor* other) {}
 			
 			friend class Scene;
 			class Scene* m_scene = nullptr;

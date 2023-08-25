@@ -12,10 +12,9 @@ namespace kda {
 			void Update(float dt) override;
 			void Draw(class Renderer& renderer) override;
 
-			virtual float getRadius() override { return m_texture->GetSize().length() * 0.5f; }
-
 		public:
 			std::string textureName;
+			Rect source;
 			res_t<Texture> m_texture;
 	};
 }

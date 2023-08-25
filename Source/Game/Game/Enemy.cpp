@@ -63,7 +63,7 @@ namespace kda {
 
 	}
 
-	void Enemy::onCollision(Actor* actor) {
+	void Enemy::onCollisionEnter(Actor* actor) {
 		//Player* p = dynamic_cast<Player*>(actor)
 		if (actor->tag == "Player") {
 

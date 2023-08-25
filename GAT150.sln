@@ -19,21 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{0832565D-1
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Source\Game\Game\First.vcxproj", "{330F372B-E35D-44B8-A9AA-E62799EB8C7E}"
 EndProject
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Game", "Build\Game.exe", "{98AF9967-4EE5-4646-AEDD-28C8243F567D}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\Year 1\Quarter 4\C++\GAT150\Build\Game.exe
-		RemoteMachine = LAPTOP-38KFR59H
-		StartingDirectory = C:\Year 1\Quarter 4\C++\GAT150\Build
-		Environment = Default
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-		IORedirection = Auto
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Source\Engine\Physics\Physics\Physics.vcxproj", "{4638947D-F949-4C69-B968-DD627FBA142F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlatformGame", "Source\Game\PlatformGame\PlatformGame.vcxproj", "{9F893186-A780-45F7-BE13-E74836FD6D1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,10 +79,6 @@ Global
 		{330F372B-E35D-44B8-A9AA-E62799EB8C7E}.Release|x64.Build.0 = Release|x64
 		{330F372B-E35D-44B8-A9AA-E62799EB8C7E}.Release|x86.ActiveCfg = Release|Win32
 		{330F372B-E35D-44B8-A9AA-E62799EB8C7E}.Release|x86.Build.0 = Release|Win32
-		{98AF9967-4EE5-4646-AEDD-28C8243F567D}.Debug|x64.ActiveCfg = Release|x64
-		{98AF9967-4EE5-4646-AEDD-28C8243F567D}.Debug|x86.ActiveCfg = Release|x64
-		{98AF9967-4EE5-4646-AEDD-28C8243F567D}.Release|x64.ActiveCfg = Release|x64
-		{98AF9967-4EE5-4646-AEDD-28C8243F567D}.Release|x86.ActiveCfg = Release|x64
 		{4638947D-F949-4C69-B968-DD627FBA142F}.Debug|x64.ActiveCfg = Debug|x64
 		{4638947D-F949-4C69-B968-DD627FBA142F}.Debug|x64.Build.0 = Debug|x64
 		{4638947D-F949-4C69-B968-DD627FBA142F}.Debug|x86.ActiveCfg = Debug|Win32
@@ -103,6 +87,14 @@ Global
 		{4638947D-F949-4C69-B968-DD627FBA142F}.Release|x64.Build.0 = Release|x64
 		{4638947D-F949-4C69-B968-DD627FBA142F}.Release|x86.ActiveCfg = Release|Win32
 		{4638947D-F949-4C69-B968-DD627FBA142F}.Release|x86.Build.0 = Release|Win32
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Debug|x64.ActiveCfg = Debug|x64
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Debug|x64.Build.0 = Debug|x64
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Debug|x86.ActiveCfg = Debug|Win32
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Debug|x86.Build.0 = Debug|Win32
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Release|x64.ActiveCfg = Release|x64
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Release|x64.Build.0 = Release|x64
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Release|x86.ActiveCfg = Release|Win32
+		{9F893186-A780-45F7-BE13-E74836FD6D1D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,8 +106,8 @@ Global
 		{C9D66926-40A0-476F-AF79-363E2B0EE83C} = {03720124-FC32-44F9-AC08-FD10D0C8A5E6}
 		{2BE129FB-064B-4C08-9248-4FAF19632EA1} = {03720124-FC32-44F9-AC08-FD10D0C8A5E6}
 		{330F372B-E35D-44B8-A9AA-E62799EB8C7E} = {0832565D-1A52-483C-9CDC-48ADE546E5A2}
-		{98AF9967-4EE5-4646-AEDD-28C8243F567D} = {0832565D-1A52-483C-9CDC-48ADE546E5A2}
 		{4638947D-F949-4C69-B968-DD627FBA142F} = {03720124-FC32-44F9-AC08-FD10D0C8A5E6}
+		{9F893186-A780-45F7-BE13-E74836FD6D1D} = {0832565D-1A52-483C-9CDC-48ADE546E5A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F5A4545-5830-4545-AB29-747140B817ED}

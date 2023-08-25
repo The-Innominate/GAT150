@@ -19,7 +19,7 @@ namespace kda {
 		bool Initialize() override;
 
 		void Update(float dt) override;
-		void onCollision(Actor* actor) override;
+		void onCollisionEnter(Actor* actor) override;
 
 	private:
 		float speed = 0;

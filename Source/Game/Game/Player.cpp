@@ -78,7 +78,7 @@ namespace kda {
 			&& !kda::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE)) {
 
 			auto weapon = INSTANTIATE(Pew, "Rocket");
-			weapon->transform = kda::Transform{ transform.position, transform.rotation + kda::DegreesToRadians(10.0f), 1 };
+			weapon->transform = { transform.position + forward * 30, transform.rotation + kda::DegreesToRadians(10.0f), 1 };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 		}
@@ -87,7 +87,7 @@ namespace kda {
 		else kda::g_time.setTimeScale(1.0f);
 	}
 
-	void Player::onCollision(Actor* actor) {
+	void Player::onCollisionEnter(Actor* actor) {
 		if (actor->tag == "EnemyBullet") {
 			hp -= 5;
 		}

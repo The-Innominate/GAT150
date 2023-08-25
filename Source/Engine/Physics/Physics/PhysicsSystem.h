@@ -1,9 +1,10 @@
 #pragma once
 #include "Framework/Singleton.h"
-#include "box2d/include/box2d/box2d.h"
 //#include "box2d/include/box2d/b2_world.h"		//<include b2_world.h from the box2d directory>
 #include "Core/Math/Vector2.h"
+#include "ContactListener.h"
 #include <memory>
+#include <box2d/include/box2d/box2d.h>
 
 #define VEC2_TO_B2VEC2(vec) (*(b2Vec2*)(&vec))
 #define B2VEC2_TO_VEC2(vec) (*(kda::Vector2*)(&vec))
@@ -53,5 +54,6 @@ namespace kda {
 
 			//<unique pointer of b2World> m_world;
 			std::unique_ptr<b2World> m_world;
+			std::unique_ptr<ContactListener> m_contactListener;
 	};
 }

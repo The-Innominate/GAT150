@@ -19,11 +19,11 @@ namespace kda {
 		bool Initialize() override;
 
 		void Update(float dt) override;
-		void onCollision(Actor* actor) override;
+		void onCollisionEnter(Actor* actor) override;
 		//void Read(const json_t& value);
 
 	private:
 		float speed = 0;
-		float turnRate = 0;
+		kda::PhysicsComponent* m_physicsComponent = nullptr;
 	};
 }

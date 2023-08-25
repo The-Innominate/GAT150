@@ -29,7 +29,7 @@ bool SpaceGame::Initialize(){
 
 	//Scene
 	m_scene = std::make_unique<kda::Scene>();
-	m_scene->Load("Scene.json");
+	m_scene->Load("Scenes/SpaceScene.json");
 	m_scene->Initialize();
 
 
@@ -61,24 +61,7 @@ void SpaceGame::Update(float dt){
 	case SpaceGame::eState::StartLevel:
 		m_scene->RemoveAll();
 	{
-			auto player = INSTANTIATE(Player, "Player");
-		//std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, kda::pi, kda::Transform{ {400, 300}, 0, 1 });
-		//player->tag = "Player";
-		//player->m_game = this;
-
-		////Create components
-		//auto component = CREATE_CLASS(SpriteComponent);
-		//component->m_texture = GET_RESOURCE(kda::Texture, "NewShip.png", kda::g_renderer);
-		//player->AddComponent(std::move(component));
-
-		//auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
-		//physicsComponent->m_damping = 0.9f;
-		//player->AddComponent(std::move(physicsComponent));
-
-		//auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
-		//collisionComponent->m_radius = 30.0f;
-		//player->AddComponent(std::move(collisionComponent));
-
+		auto player = INSTANTIATE(Player, "Player");
 		player->Initialize();
 		m_scene->Add(std::move(player));
 	}

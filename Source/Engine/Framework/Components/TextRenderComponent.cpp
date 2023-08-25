@@ -35,7 +35,7 @@ namespace kda {
 		{
 			m_changed = false;
 			// create text using text string and color 
-			m_text->Create(renderer, text, { 1, 1, 1, 1 });
+			m_text->Create(renderer, text, color);
 		}
 		// draw text
 		m_text->Draw(renderer, m_owner->transform);  /*<draw using renderer and transform>*/
@@ -56,5 +56,6 @@ namespace kda {
 		READ_DATA(value, text);
 		READ_DATA(value, fontName);
 		READ_DATA(value, fontSize);
+		READ_DATA(value, color);
 	}
 }
