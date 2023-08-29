@@ -171,7 +171,8 @@
 			"name": "Enemy",
 			"tag": "Enemy",
 			"persistent": true,
-			"speed": 25,
+			"prototype": true,
+			"speed": 1,
 			"jump": 5,
 			"transform": {
 				"position": [ 100, 200 ],

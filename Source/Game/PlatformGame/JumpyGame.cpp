@@ -19,6 +19,7 @@ bool JumpyGame::Initialize() {
 	//Scene
 	m_scene = std::make_unique<kda::Scene>();
 	m_scene->Load("Scenes/JumpyScene.json");
+	m_scene->Load("Scenes/tilemap.json");
 	m_scene->Initialize();
 
 

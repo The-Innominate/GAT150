@@ -15,6 +15,9 @@ namespace kda {
 		public:
 			std::string textureName;
 			Rect source;
+			bool flipH = false;
+			vec2 origin { .5f , .5f };
+
 			res_t<Texture> m_texture;
 	};
 }

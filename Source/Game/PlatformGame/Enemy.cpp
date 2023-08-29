@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Player.h"
 #include "Render/Renderer.h"
 #include "Framework/Framework.h"
 
@@ -22,22 +23,12 @@ namespace kda {
 		Actor::Update(dt);
 
 		//movement
-		float dir = 0;
-		/*if (kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_LEFT)) dir = -1;
-		if (kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_RIGHT)) dir = 1;*/
-
-		kda::vec2 forward = kda::vec2{ 1 , 0 };
-		m_physicsComponent->ApplyForce(forward * speed * dir);
-
-		//Jump
-		bool onGround = (groundCount > 0);
-
-		if (onGround && kda::g_inputSystem.GetKeyDown(SDL_SCANCODE_UP)
-			&& !kda::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_UP)) {
-
-			kda::vec2 up = kda::vec2{ 0 , -1 };
-			m_physicsComponent->SetVelocity(up * jump);
-
+		kda::vec2 forward = kda::vec2{ 0, -1 }.Rotate(transform.rotation);
+		Player* player = m_scene->GetActor<Player>();
+		if (player)
+		{
+			kda::vec2 direction = player->transform.position - transform.position;
+			m_physicsComponent->ApplyForce(direction.Normalized() * speed);
 		}
 	}
 

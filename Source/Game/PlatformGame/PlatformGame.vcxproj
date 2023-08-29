@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Build\Assets\Scenes\JumpyScene.json" />
+    <None Include="..\..\..\Build\Assets\Scenes\tilemap.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />

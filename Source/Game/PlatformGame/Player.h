@@ -1,6 +1,7 @@
 #pragma once
 #include "./Framework/Actor.h"
 #include "./Framework/Components/PhysicsComponents.h"
+#include "Framework/Components/SpriteAnimComponent.h"
 
 namespace kda
 {
@@ -20,5 +21,6 @@ namespace kda
 		int groundCount = 0;
 
 		kda::PhysicsComponent* m_physicsComponent = nullptr;
+		kda::SpriteAnimComponent* m_spriteAnimComponent = nullptr;
 	};
 }

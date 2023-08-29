@@ -24,7 +24,7 @@ namespace kda {
 			mat3 ms = mat3::CreateScale(scale);
 			mat3 mr = mat3::CreateRotation(rotation);
 			mat3 mt = mat3::CreateTranslation(position);
-			mat3 mx = ms * mt * mr;
+			mat3 mx = mt * ms * mr;
 
 			return mx;
 		}
