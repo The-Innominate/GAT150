@@ -16,6 +16,7 @@ namespace kda
 
 	private:
 		float speed = 0;
+		float maxSpeed = 0;
 		float jump = 0;
 		int hp = 20;
 		int groundCount = 0;

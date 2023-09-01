@@ -4,6 +4,8 @@
 #include "Framework/Framework.h"
 
 #include "Input/InputSystem.h"
+#include "Framework/Event/EventManager.h"
+
 
 namespace kda {
 
@@ -27,21 +29,26 @@ namespace kda {
 		Player* player = m_scene->GetActor<Player>();
 		if (player)
 		{
-			kda::vec2 direction = player->transform.position - transform.position;
-			m_physicsComponent->ApplyForce(direction.Normalized() * speed);
+			//kda::vec2 direction = -1;/*player->transform.position - transform.position;*/
+			//m_physicsComponent->ApplyForce(direction.Normalized() * speed);
 		}
 	}
 
 	void Enemy::onCollisionEnter(Actor* actor) {
-		if (actor->tag == "EnemyBullet") {
-			hp -= 5;
-		}
-		if (actor->tag == "Enemy") {
+		if (actor->tag != "Enemy") {
+			kda::EventManager::Instance().DispatchEvent("AddPoints", 100);
+			Player* player = m_scene->GetActor<Player>();
+			if (player)
+			{
+				float distance = player->transform.position.x - transform.position.x;
+				if (std::fabs(distance) < 30)
+				{
+					player->destroyed = true;
+					kda::EventManager::Instance().DispatchEvent("GameOver", 0);
+					
+				}
+			}
 			m_destroyed = true;
-			m_game->SetLives(m_game->GetLives() - 1);
-		}
-		if (actor->tag == "Ground") {
-			groundCount++;
 		}
 	}
 

@@ -46,11 +46,13 @@ namespace kda {
 			bool destroyed = false;
 			bool persistent = false;
 			bool prototype = false;
+			int score = 0;
+			bool m_destroyed = false;
 
 		protected:
 			std::vector<std::unique_ptr<class Component>> components;
 
-			bool m_destroyed = false;
+			
 	};
 
 	template<typename T>

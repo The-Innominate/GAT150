@@ -1,3 +1,4 @@
 Info: Main.cpp(43) Initialize Engine...
 Info: EventManager.cpp(15) Event subscribed: AddPoints
 Info: EventManager.cpp(15) Event subscribed: OnPlayerDead
+Info: EventManager.cpp(15) Event subscribed: GameOver

@@ -6,13 +6,13 @@
 			"persistent": true,
 			"transform": {
 				"position": [ 400, 300 ],
-				"scale": 1,
+				"scale": 1.5,
 				"rotation": 0
 			},
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "background.jpg"
+					"textureName": "Textures/sky.jpg"
 				}
 			]
 		},
@@ -31,79 +31,44 @@
 					"fontName": "MetalRocker.ttf",
 					"fontSize": 32,
 					"text": "Falling Down?",
-					"color": [ 0, 0, 0, 1 ]
+					"color": [ 1, 1, 1, 1 ]
 				}
 			]
 		},
 		{
 			"type": "Actor",
-			"name": "Coin",
+			"name": "Score",
 			"persistent": true,
 			"transform": {
-				"position": [ 400, 300 ],
+				"position": [ 100, 550 ],
 				"scale": 1,
 				"rotation": 0
 			},
 			"components": [
 				{
-					"type": "SpriteAnimComponent",
-					"defaultSequenceName": "idle",
-					"sequences": [
-						{
-							"name": "idle",
-							"fps": 12,
-							"numColumns": 8,
-							"numRows": 1,
-							"startFrame": 1,
-							"endFrame": 8,
-							"textureName": "Textures/coin.png"
-						}
-					]
-				},
-				{
-					"type": "Box2DPhysicsComponent",
-					"gravityScale": 0.02,
-					"constrainAngle": true
-				},
-				{
-					"type": "Box2DCollisionComponent",
-					"restitution": 1
+					"type": "TextRenderComponent",
+					"fontName": "MetalRocker.ttf",
+					"fontSize": 32,
+					"text": "Score: ",
+					"color": [ 1, 1, 1, 1 ]
 				}
 			]
 		},
+
+
+
+
+
+
 		{
 			"type": "Actor",
-			"name": "Box",
-			"tag":  "Ground",
-			"persistent": true,
-			"prototype":  true,
-			"transform": {
-				"position": [ 380, 300 ],
-				"scale": 1,
-				"rotation": 0
-			},
-			"components": [
-				{
-					"type": "SpriteComponent",
-					"textureName": "Textures/Box.jpg"
-				},
-				{
-					"type": "Box2DPhysicsComponent",
-					"gravityScale": 100
-				},
-				{
-					"type": "Box2DCollisionComponent",
-					"restitution": 0
-				}
-			]
-		},
-		{
-			"type": "Actor",
+			"name": "Ground",
 			"tag": "Ground",
+			"prototype": false,
 			"transform": {
 				"position": [
-					500,
-					520
+					400,
+					50
 				]
 			},
 			"components": [
@@ -113,19 +78,96 @@
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"size": [ 600, 20 ]
+					"size": [ 780, 10 ],
+					"restitution": 0
 				}
 			]
 		},
+		{
+			"type": "Actor",
+			"name": "Ground",
+			"tag": "Ground",
+			"prototype": false,
+			"transform": {
+				"position": [
+					0,
+					50
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 20, 50 ],
+					"restitution": 0
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Ground",
+			"tag": "Ground",
+			"prototype": false,
+			"transform": {
+				"position": [
+					800,
+					50
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 20, 50 ],
+					"restitution": 0
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Ground",
+			"tag": "Ground",
+			"prototype": false,
+			"transform": {
+				"position": [
+					400,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 780, 10 ]
+				}
+			]
+		},
+
+
+
+
+
+
 		{
 			"type": "Player",
 			"name": "Player",
 			"tag": "Player",
 			"persistent": true,
-			"speed": 5,
+			"prototype": true,
+			"speed": 50,
+			"maxSpeed": 5,
 			"jump": 5,
 			"transform": {
-				"position": [ 200, 300 ],
+				"position": [ 400, 10 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -133,6 +175,8 @@
 				{
 					"type": "SpriteAnimComponent",
 					"defaultSequenceName": "idle",
+					"source": [ 0, 0, 18, 28 ],
+					"origin": [ 0.5, 0.95 ],
 					"sequences": [
 						{
 							"name": "idle",
@@ -175,31 +219,18 @@
 			"speed": 1,
 			"jump": 5,
 			"transform": {
-				"position": [ 100, 200 ],
+				"position": [ 0, 400 ],
 				"scale": 1,
 				"rotation": 0
 			},
 			"components": [
 				{
-					"type": "SpriteAnimComponent",
-					"defaultSequenceName": "idle",
-					"sequences": [
-						{
-							"name": "idle",
-							"fps": 12,
-							"numColumns": 4,
-							"numRows": 1,
-							"startFrame": 1,
-							"endFrame": 4,
-							"textureName": "Textures/bat.png"
-						}
-					]
+					"type": "SpriteComponent",
+					"textureName": "Textures/Box.jpg"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
-					"gravityScale": 0,
-					"damping": 0.98,
-					"constrainAngle": true
+					"gravityScale": -0.025
 				},
 				{
 					"type": "Box2DCollisionComponent",

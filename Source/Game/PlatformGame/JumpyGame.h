@@ -25,11 +25,13 @@ public:
 	void SetState(eState state) { m_state = state; }
 	void AddPoints(const kda::Event& event);
 	void OnPlayerDead(const kda::Event& event);
+	void GameOver(const kda::Event& event);
+
 
 private:
 	eState m_state = eState::Title;
 	float m_spawnTimer = 0;
-	float m_spawnTime = 3;
+	float m_spawnTime = 4;
 
 	float m_stateTimer = 3;
 

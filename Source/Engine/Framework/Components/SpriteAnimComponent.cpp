@@ -9,8 +9,10 @@ namespace kda {
 	{
 		SpriteComponent::Initialize();
 
-		SetSequence(defaultSequenceName);
-		UpdateSource();
+		SetSequence(defaultSequenceName, false);
+		if (source.w == 0 && source.h == 0) {
+			UpdateSource();
+		}
 
 		return true;
 	}
@@ -28,14 +30,20 @@ namespace kda {
 		UpdateSource();
 	}
 
-	void SpriteAnimComponent::SetSequence(const std::string& name) {
+	void SpriteAnimComponent::SetSequence(const std::string& name, bool update) {
 		if (m_sequence && m_sequence->name == name) return;
 		if (sequences.find(name) != sequences.end()) {
 			m_sequence = &sequences[name];
-			if(m_sequence->texture)	m_texture = m_sequence->texture;
+			if (m_sequence->texture) {
+				m_texture = m_sequence->texture;
+			}
 
 			frame = m_sequence->startFrame;
 			frameTime = 1.0f / m_sequence->fps;
+
+			if (update) {
+				UpdateSource();
+			}
 		}
 		
 	}

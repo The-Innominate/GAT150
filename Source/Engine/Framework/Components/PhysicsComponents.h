@@ -11,6 +11,7 @@ namespace kda {
 			virtual void ApplyTorque(float torque) = 0;
 
 			virtual void SetVelocity(const vec2& velocity) { this->velocity = velocity; }
+			virtual void setGravityScale(float scale) {};
 
 		public:
 			vec2 velocity;
